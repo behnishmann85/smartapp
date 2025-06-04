@@ -1,4 +1,6 @@
-from flask import Flask, logging
+from flask import Flask, logging, render_template
+import logging
+import requests
 
 app = Flask(__name__)
 
@@ -19,6 +21,31 @@ FHIR_API_URL2 = "https://fhir.testphysicalactivity.com/fhir/"
 CLIENT_ID2 = "physical_activity"
 REDIRECT_URI2 = "http://localhost:5000/call-back"
 SCOPES2 = "patient/Patient.read"
+
+@app.route('/')
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
+@app.route('/launch')
+def launch():
+    return ""
+
+@app.route('/launch2')
+def launch2():
+    return ""
+
+@app.route('/epic')
+def epic():
+    return ""
+
+@app.route('/listpatients')
+def listpatients():
+    return ""
+
+@app.route('/reset')
+def reset():
+    return ''
 
 
 if __name__ == '__main__':
