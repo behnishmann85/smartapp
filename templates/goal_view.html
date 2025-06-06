@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+  {% block content %}
+
+  <h2>Goals for Patient {{ patient_id }}</h2>
+<a href="{{ url_for('edit_goal', patient_id=patient_id) }}" class="btn btn-primary mb-3">Add Goal</a>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for goal in goals %}
+    <tr>
+      <td>{{ goal.description.text if goal.description else '—' }}</td>
+      <td>{{ goal.lifecycleStatus or '—' }}</td>
+      <td>
+        <a href="{{ url_for('edit_goal', patient_id=patient_id, goal_id=goal.id) }}" class="btn btn-sm btn-warning">Edit</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+      {% endblock %}

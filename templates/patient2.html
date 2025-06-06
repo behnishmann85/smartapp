@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+  {% block content %}
+
+  <h2 class="mb-4">Patient Summary: {{ patient.name[0].text }}</h2>
+
+  <div class="card mb-3">
+    <div class="card-header bg-primary text-white">Demographics</div>
+    <div class="card-body">
+      <p><strong>Gender:</strong> {{ patient.gender | title }}</p>
+      <p><strong>Birth Date:</strong> {{ patient.birthDate }}</p>
+      <p><strong>Marital Status:</strong> {{ patient.maritalStatus.text }}</p>
+      <p><strong>Active:</strong> {{ patient.active }}</p>
+    </div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header bg-success text-white">Contact Info</div>
+    <div class="card-body">
+      <ul class="list-group">
+        {% for contact in patient.telecom %}
+          <li class="list-group-item">
+            <strong>{{ contact.system | title }} ({{ contact.use }}):</strong> {{ contact.value }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header bg-info text-white">Address</div>
+    <div class="card-body">
+      {% for addr in patient.address %}
+        <p>
+          {{ addr.text }}<br>
+          {{ addr.city }}, {{ addr.state }} {{ addr.postalCode }}<br>
+          {{ addr.country }}
+        </p>
+      {% endfor %}
+    </div>
+  </div>
+      {% endblock %}

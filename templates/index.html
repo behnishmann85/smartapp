@@ -1,4 +1,32 @@
 {% extends 'layout.html' %}
+
+
 {% block content %}
-  Hello
+    <div class="container d-flex justify-content-center">
+    <div class="card p-5 launch-card text-center">
+      <h1 class="mb-3">Welcome to the SMART on FHIR App</h1>
+      <p class="mb-4 text-muted">
+        This application demonstrates how to connect securely to an Electronic Health Record system using
+        <strong>SMART on FHIR</strong>. It allows you to view, create, and manage clinical data such as patients, medications, care plans, and more.
+      </p>
+
+      <form action="/launch" method="get">
+        <div class="mb-3">
+          <label for="iss" class="form-label">FHIR Server URL (iss)</label>
+          <input type="url" class="form-control" id="iss" name="iss"
+                 placeholder="https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4" required>
+        </div>
+        <a class="btn btn-primary btn-launch" href="/launch" >🔐 Launch SMART App</a>
+      </form>
+
+      <div class="mt-4">
+        <p class="text-muted small">
+          You can use Epic’s public sandbox URL or enter a different FHIR server that supports SMART launch.
+        </p>
+        <p class="text-muted small">
+          For testing, try: <code>https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4</code>
+        </p>
+      </div>
+    </div>
+  </div>
 {% endblock %}

@@ -1,0 +1,29 @@
+  {% extends 'layout.html' %}
+  {% block content %}
+  <h2>{{ action }} Patient</h2>
+  <form method="POST">
+    <div class="mb-3">
+      <label>Given Name</label>
+      <input type="text" name="given" class="form-control" required value="{{ patient['name'][0]['given'][0] if patient }}">
+    </div>
+    <div class="mb-3">
+      <label>Family Name</label>
+      <input type="text" name="family" class="form-control" required value="{{ patient['name'][0]['family'] if patient }}">
+    </div>
+    <div class="mb-3">
+      <label>Gender</label>
+      <select name="gender" class="form-control">
+        <option value="">--Select--</option>
+        <option value="male" {% if patient and patient['gender']=='male' %}selected{% endif %}>Male</option>
+        <option value="female" {% if patient and patient['gender']=='female' %}selected{% endif %}>Female</option>
+        <option value="other" {% if patient and patient['gender']=='other' %}selected{% endif %}>Other</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label>Birth Date</label>
+      <input type="date" name="birthDate" class="form-control" value="{{ patient['birthDate'] if patient }}">
+    </div>
+    <button type="submit" class="btn btn-primary">{{ action }}</button>
+    <a href="/" class="btn btn-secondary">Cancel</a>
+  </form>
+      {% endblock %}

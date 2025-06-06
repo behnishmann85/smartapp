@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+  {% block content %}
+
+  <h2>{{ 'Edit' if goal.id else 'Create' }} Goal</h2>
+<form method="POST" class="mt-3">
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" class="form-control" id="description" name="description" required
+           value="{{ goal.description.text if goal.description else '' }}">
+  </div>
+
+  <div class="mb-3">
+    <label for="status" class="form-label">Status</label>
+    <select name="status" id="status" class="form-control" required>
+      {% set current = goal.lifecycleStatus or '' %}
+      {% for status in ['planned', 'accepted', 'active', 'completed', 'cancelled', 'entered-in-error'] %}
+        <option value="{{ status }}" {% if current == status %}selected{% endif %}>{{ status }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-success">Save</button>
+  <a href="{{ url_for('list_goals', patient_id=patient_id) }}" class="btn btn-secondary">Cancel</a>
+</form>
+
+      {% endblock %}

@@ -1,0 +1,53 @@
+  {% extends 'layout.html' %}
+  {% block content %}
+  <h2>Patient List</h2>
+  <form class="row mb-4" method="GET" action="listpatients">
+    <div class="col">
+      <input type="text" name="given" class="form-control" placeholder="Given Name">
+    </div>
+    <div class="col">
+      <input type="text" name="family" class="form-control" placeholder="Family Name">
+    </div>
+    <div class="col">
+      <button type="submit" class="btn btn-primary">Search</button>
+      <a href="/createpatient" class="btn btn-success">+ Add New Patient</a>
+    </div>
+  </form>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th><th>Gender</th><th>Birth Date</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in patients %}
+      <tr>
+        <td>{% set name = p.name[0] if p.name else {} %}
+{% set given = name.given[0] if name.given else '' %}
+{{ given }}</td>
+        <td>{{ p['gender'] }}</td>
+        <td>{{ p['birthDate'] }}</td>
+        <td>
+          <a href="/editpatient/{{ p['id'] }}" class="btn btn-sm btn-warning">Edit</a>
+          <form method="POST" action="/deletepatient/{{ p['id'] }}" style="display:inline;">
+            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this patient?')">Delete</button>
+          </form>
+
+          <!-- Dropdown for resource links -->
+        <div class="btn-group">
+          <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            View Resources
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ url_for('list_observations', patient_id=p.id) }}">Observations</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('list_goals', patient_id=p.id) }}">Goals</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('list_careplans', patient_id=p.id) }}">CarePlans</a></li>
+          </ul>
+        </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+    {% endblock %}
